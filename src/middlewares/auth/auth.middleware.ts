@@ -12,10 +12,10 @@ export class AuthMiddleware implements NestMiddleware {
       });
     }
 
-    req['user'] = {
-      username: 'codeawy',
-      roles: ['ADMIN'],
-    };
+    // req['user'] = {
+    //   username: 'codeawy',
+    //   roles: ['ADMIN'],
+    // };
 
     next();
   }

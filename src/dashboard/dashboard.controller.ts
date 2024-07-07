@@ -15,9 +15,10 @@ import { UpdateDashboardDto } from './dto/update-dashboard.dto';
 import { AuthGuard } from 'src/guards/auth/auth.guard';
 import { RolesGuard } from 'src/guards/auth/roles/roles.guard';
 import { Roles } from 'src/decorators/roles/roles.decorator';
+import { SystemRoles } from 'src/guards/roles/roles.enum';
 
 @Controller('dashboard')
-@UseGuards(AuthGuard, RolesGuard)
+@UseGuards(RolesGuard)
 export class DashboardController {
   constructor(private readonly dashboardService: DashboardService) {}
   @Post()
@@ -26,7 +27,7 @@ export class DashboardController {
   }
 
   @Get()
-  @Roles('ADMIN', 'MANAGER')
+  @Roles(SystemRoles.ADMIN, SystemRoles.MANAGER)
   findAll() {
     return this.dashboardService.findAll();
   }
