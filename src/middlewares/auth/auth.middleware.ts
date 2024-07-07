@@ -1,11 +1,21 @@
-import { HttpStatus } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { HttpStatus, Injectable, NestMiddleware } from '@nestjs/common';
+import { Request, Response, NextFunction } from 'express';
 
-export function authMiddleware(req: Request, res: Response, next: () => void) {
-  if (!req.headers.authorization) {
-    return res
-      .status(HttpStatus.UNAUTHORIZED)
-      .json({ message: 'Unauthorized' });
+@Injectable()
+export class AuthMiddleware implements NestMiddleware {
+  use(req: Request, res: Response, next: NextFunction) {
+    const token = req.headers['authorization']?.split(' ')[1];
+
+    if (!token) {
+      return res.status(HttpStatus.UNAUTHORIZED).json({
+        message: 'Invalid token provided',
+      });
+    } else {
+      return res.status(HttpStatus.ACCEPTED).json({
+        message: 'You have access to this protected resource',
+      });
+    }
+
+    next();
   }
-  next();
 }
