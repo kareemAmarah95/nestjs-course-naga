@@ -10,11 +10,12 @@ export class AuthMiddleware implements NestMiddleware {
       return res.status(HttpStatus.UNAUTHORIZED).json({
         message: 'Bad Request',
       });
-    } else {
-      return res.status(HttpStatus.ACCEPTED).json({
-        message: 'You have access to this protected resource',
-      });
     }
+    //  else {
+    //   return res.status(HttpStatus.ACCEPTED).json({
+    //     message: 'You have access to this protected resource',
+    //   });
+    // }
     // 3. valid token
 
     req['user'] = 'codeawy';
