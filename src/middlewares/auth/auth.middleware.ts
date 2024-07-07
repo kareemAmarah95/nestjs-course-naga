@@ -10,15 +10,14 @@ export class AuthMiddleware implements NestMiddleware {
       return res.status(HttpStatus.UNAUTHORIZED).json({
         message: 'Bad Request',
       });
+    } else {
+      return res.status(HttpStatus.ACCEPTED).json({
+        message: 'You have access to this protected resource',
+      });
     }
-    // 3. verify the token
-    console.log(process.env.JWT_SECRET);
-    // const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    // if (decoded) {
-    //   return res.status(HttpStatus.UNAUTHORIZED).json({
-    //     message: 'Valid token provided',
-    //   });
-    // }
+    // 3. valid token
+
+    req['user'] = 'codeawy';
 
     next();
   }
