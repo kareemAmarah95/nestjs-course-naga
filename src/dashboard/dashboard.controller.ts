@@ -17,8 +17,7 @@ import { RolesGuard } from 'src/guards/auth/roles/roles.guard';
 import { Roles } from 'src/decorators/roles/roles.decorator';
 
 @Controller('dashboard')
-@Roles('ADMIN', 'MANAGER')
-@UseGuards(RolesGuard)
+@UseGuards(AuthGuard, RolesGuard)
 export class DashboardController {
   constructor(private readonly dashboardService: DashboardService) {}
   @Post()
@@ -27,8 +26,8 @@ export class DashboardController {
   }
 
   @Get()
-  @UseGuards(AuthGuard)
-  async findAll() {
+  @Roles('ADMIN', 'MANAGER')
+  findAll() {
     return this.dashboardService.findAll();
   }
 

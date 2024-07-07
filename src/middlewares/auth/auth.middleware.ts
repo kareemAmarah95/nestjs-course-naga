@@ -11,14 +11,11 @@ export class AuthMiddleware implements NestMiddleware {
         message: 'Bad Request',
       });
     }
-    //  else {
-    //   return res.status(HttpStatus.ACCEPTED).json({
-    //     message: 'You have access to this protected resource',
-    //   });
-    // }
-    // 3. valid token
 
-    req['user'] = 'codeawy';
+    req['user'] = {
+      username: 'codeawy',
+      roles: ['ADMIN'],
+    };
 
     next();
   }
